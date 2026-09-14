@@ -22,6 +22,15 @@ namespace StreamCompaction {
         }
 
         /**
+         * Performs prefix-sum (aka scan) on idata, storing the result into odata.
+         */
+        void scanSharedMem(int n, int* odata, const int* idata) {
+            timer().startGpuTimer();
+            // TODO
+            timer().endGpuTimer();
+        }
+
+        /**
          * Performs stream compaction on idata, storing the result into odata.
          * All zeroes are discarded.
          *
@@ -31,6 +40,22 @@ namespace StreamCompaction {
          * @returns      The number of elements remaining after compaction.
          */
         int compact(int n, int *odata, const int *idata) {
+            timer().startGpuTimer();
+            // TODO
+            timer().endGpuTimer();
+            return -1;
+        }
+
+        /**
+         * Performs stream compaction on idata, storing the result into odata.
+         * All zeroes are discarded.
+         *
+         * @param n      The number of elements in idata.
+         * @param odata  The array into which to store elements.
+         * @param idata  The array of elements to compact.
+         * @returns      The number of elements remaining after compaction.
+         */
+        int compactSharedMem(int n, int* odata, const int* idata) {
             timer().startGpuTimer();
             // TODO
             timer().endGpuTimer();
