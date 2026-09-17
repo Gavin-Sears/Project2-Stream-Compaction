@@ -83,7 +83,7 @@ namespace StreamCompaction {
          * Performs prefix-sum (aka scan) on idata, storing the result into odata.
          */
         void scan(int n, int *odata, const int *idata) {
-            unsigned blockSize = 128;
+            unsigned blockSize = Common::getBlockSize();
             unsigned gridSize = Common::divup(n, blockSize);
 
             int* dev_odata;
@@ -140,7 +140,7 @@ namespace StreamCompaction {
         // work that every block has done. Therefore, each block gets a subset of the input data,
         // and also keeps track of a total per block. We then run a scan on block totals, and add them to result.
         void scanSharedMemDevice(int n, int* dev_odata, const int* dev_idata, int*& arena) {
-            unsigned blockSize = 128;
+            unsigned blockSize = Common::getBlockSize();
             unsigned gridSize = Common::divup(n, blockSize);
 
             // use current 
@@ -183,7 +183,7 @@ namespace StreamCompaction {
             // that doing a scan on the block totals takes more than one block).
             // If we simply allocate a blockOffset array for each recursion in scanSharedMemDevice,
             // it causes large performance issues that make the non-shared memory version faster.
-            unsigned blockSize = 128;
+            unsigned blockSize = Common::getBlockSize();
             size_t scratchSize = 0;
             unsigned levelGrid = Common::divup((unsigned)n, blockSize);
             while (true) {

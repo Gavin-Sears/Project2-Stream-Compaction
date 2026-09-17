@@ -34,6 +34,12 @@ namespace StreamCompaction {
     namespace Common {
         unsigned divup(unsigned a, unsigned b);
 
+        // Block size used by every kernel launch in this project. Reads the
+        // SCAN_BLOCK_SIZE environment variable once (falling back to 128 if
+        // unset), so a benchmarking script can sweep it across runs without
+        // recompiling.
+        unsigned getBlockSize();
+
         __global__ void kernMapToBoolean(int n, int *bools, const int *idata);
 
         __global__ void kernScatter(int n, int *odata,

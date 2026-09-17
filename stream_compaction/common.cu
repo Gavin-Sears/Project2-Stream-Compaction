@@ -1,4 +1,5 @@
 #include "common.h"
+#include <cstdlib>
 
 void checkCUDAErrorFn(const char *msg, const char *file, int line) {
     cudaError_t err = cudaGetLastError();
@@ -21,6 +22,14 @@ namespace StreamCompaction {
         // ceil(a / b)
         unsigned divup(unsigned a, unsigned b) {
             return (a + b - 1) / b;
+        }
+
+        unsigned getBlockSize() {
+            static unsigned blockSize = [] {
+                const char* env = std::getenv("SCAN_BLOCK_SIZE");
+                return env ? static_cast<unsigned>(std::atoi(env)) : 128u;
+            }();
+            return blockSize;
         }
 
         /**
